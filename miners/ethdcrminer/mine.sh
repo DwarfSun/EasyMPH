@@ -1,0 +1,1 @@
+./ethdcrminer64 -epool us-east.ethash-hub.miningpoolhub.com:17020 -ewal username.workername -eworker username.workername -esm 2 -epsw x -allcoins 1 -dpool stratum+tcp://hub.miningpoolhub.com:20550 -dwal username.workername -dpsw x -dcoin sc -dbg -1 -retrydelay -1

@@ -1,13 +1,30 @@
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 1>&2
+   echo "This script must be run as root. On Ubuntu, try: sudo ./install.sh UserName WorkerID" 1>&2
    exit 1
 fi
+
+#parameters = $#
+if (($# < 1)); then
+  echo "Expecting username and worker ID. On Ubuntu,: try sudo ./install.sh UserName WorkerID" 1>&2
+  exit 1
+fi
+
+echo "Sleeping for 30 seconds"
+sleep 30
+
+#if [[$# -lt 1]]; then
+#  echo  "You must include your username." 1>&2
+#  exit 1
+#fi
 
 apt-get --assume-yes install git automake autotools-dev build-essential cmake libcurl4-openssl-dev libhwloc-dev libjansson-dev libssl-dev libuv1-dev nvidia-cuda-dev nvidia-cuda-toolkit gcc-5 g++-5 libmicrohttpd-dev
 
 mkdir -p /miners/source
 cd /miners/source
+
+#Clone EasyMPH files from GitHub
+git clone https://github.com/DwarfSun/EasyMPH.git
 
 #Clone CCMiner source from GitHub
 git clone https://github.com/tpruvot/ccminer.git
@@ -39,6 +56,8 @@ make
 mkdir -p /miners/ccminer
 mkdir -p /miners/xmr-stak
 mkdir -p /miners/xmrig
+mkdir -p /miners/zm
+mkdir -p /miners/ethdcrminer
 
 #Move files
 #CCMiner
@@ -47,6 +66,14 @@ mv /miners/source/ccminer/ccminer /miners/ccminer
 #xmr-stak
 mv /miners/source/xmr-stak/build/bin/xmr-stak /miners/xmr-stak
 mv /miners/source/xmr-stak/build/bin/*.so /miners/xmr-stak
+cp /miners/source/EasyMPH/miners/xmr-stak/*.txt /miners/xmr-stak
 
 #xmrig
 mv /miners/source/xmrig/build/xmrig /miners/xmrig
+
+#DSTM's ZM
+cp /miners/source/EasyMPH/miners/zm/* /miners/zm
+
+#Claymore's ETH Dual Miner
+cp /miners/source/EasyMPH/miners/ethdcrminer/* /miners/ethdcrminer
+
