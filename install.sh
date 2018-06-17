@@ -9,9 +9,6 @@ if [[ $# -lt 1 ]]; then
   exit 1
 fi
 
-#echo "Sleeping for 30 seconds"
-#sleep 30
-
 apt-get --assume-yes install git automake autotools-dev build-essential cmake libcurl4-openssl-dev libhwloc-dev libjansson-dev libssl-dev libuv1-dev nvidia-cuda-dev nvidia-cuda-toolkit gcc-5 g++-5 libmicrohttpd-dev
 
 mkdir -p /miners/source
@@ -19,15 +16,19 @@ cd /miners/source
 
 #Clone EasyMPH files from GitHub
 git clone https://github.com/DwarfSun/EasyMPH.git
+cd EasyMPH;git pull;cd ..;
 
 #Clone CCMiner source from GitHub
 git clone https://github.com/tpruvot/ccminer.git
+cd ccminer; git pull; cd ..;
 
 #Clone xmr-stak source from GitHub
 git clone https://github.com/fireice-uk/xmr-stak.git
+cd xmr-stak; git pull; cd ..;
 
 #Clone xmrig source from GitHub
 git clone https://github.com/xmrig/xmrig.git
+cd xmrig; git pull; cd ..;
 
 #Build CCMiner
 mkdir -p /miners/source/ccminer
@@ -76,7 +77,7 @@ sed -i "s/username.workername/$1.$2/g" pools.txt
 
 cd /miners
 cp /miners/source/EasyMPH/scripts/automine.sh .
-sed -i "/susername.workername/$1.$2/g" automine.sh
+sed -i "s/username.workername/$1.$2/g" automine.sh
 
 crontab -l > crontab.txt
 echo "@reboot screen -dmS automine /miners/automine.sh" >> crontab.txt

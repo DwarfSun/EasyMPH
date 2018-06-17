@@ -8,7 +8,7 @@ while :
 
     #equihash
     cd /miners/zm
-    ./zm --noreconnect --server europe.equihash-hub.miningpoolhub.com --port 12023 --user username.workername --pass x
+    ./zm --noreconnect --server europe.equihash-hub.miningpoolhub.com --port 12023 --user username.workername --pass x --telemetry=0.0.0.0:2222
 
     #ethash
     #cd /miners/ethdcrminer
