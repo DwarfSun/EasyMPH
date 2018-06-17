@@ -76,7 +76,7 @@ sed -i "s/username.workername/$1.$2/g" pools.txt
 
 cd /miners
 cp /miners/source/EasyMPH/scripts/automine.sh .
-sed -i "/susername.workername/$1.$2/g" automine.sh
+sed -i "s/username.workername/$1.$2/g" automine.sh
 
 crontab -l > crontab.txt
 echo "@reboot screen -dmS automine /miners/automine.sh" >> crontab.txt
