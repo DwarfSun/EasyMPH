@@ -1,7 +1,7 @@
 while :
   do
-	killall ccminer; killall zm; killall xmr-stak
-	
+    killall ccminer; killall zm; killall xmr-stak; killall ethdcrminer64;
+
     #cryptonight
     cd /miners/xmr-stak
     ./xmr-stak
@@ -11,6 +11,8 @@ while :
     ./zm --noreconnect --server europe.equihash-hub.miningpoolhub.com --port 12023 --user username.workername --pass x
 
     #ethash
+    #cd /miners/ethdcrminer
+    #./ethdcrminer64 -epool us-east.ethash-hub.miningpoolhub.com:12020 -ewal username.workername -eworker username.workername -esm 2 -epsw x -allcoins 1 -dbg -1 -retrydelay -1 -mport -2222
 
     #groestl
     cd /miners/ccminer

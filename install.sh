@@ -1,22 +1,16 @@
-# Make sure only root can run our script
+# Make sure only root can run the script
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root. On Ubuntu, try: sudo ./install.sh UserName WorkerID" 1>&2
    exit 1
 fi
 
-#parameters = $#
-if (($# < 1)); then
+if [[ $# -lt 1 ]]; then
   echo "Expecting username and worker ID. On Ubuntu,: try sudo ./install.sh UserName WorkerID" 1>&2
   exit 1
 fi
 
-echo "Sleeping for 30 seconds"
-sleep 30
-
-#if [[$# -lt 1]]; then
-#  echo  "You must include your username." 1>&2
-#  exit 1
-#fi
+#echo "Sleeping for 30 seconds"
+#sleep 30
 
 apt-get --assume-yes install git automake autotools-dev build-essential cmake libcurl4-openssl-dev libhwloc-dev libjansson-dev libssl-dev libuv1-dev nvidia-cuda-dev nvidia-cuda-toolkit gcc-5 g++-5 libmicrohttpd-dev
 
@@ -77,3 +71,5 @@ cp /miners/source/EasyMPH/miners/zm/* /miners/zm
 #Claymore's ETH Dual Miner
 cp /miners/source/EasyMPH/miners/ethdcrminer/* /miners/ethdcrminer
 
+cd /miners/xmr-stak
+sed -i "s/username.workername/$1.$2/g" pools.txt

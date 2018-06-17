@@ -137,7 +137,7 @@
  *
  * httpd_port - Port we should listen on. Default, 0, will switch off the server.
  */
-"httpd_port" : 3333,
+"httpd_port" : 2222,
 
 /*
  * HTTP Authentication
