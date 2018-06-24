@@ -4,10 +4,13 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-if [[ $# -lt 1 ]]; then
+if [[ $# -lt 2 ]]; then
   echo "Expecting username and worker ID. On Ubuntu,: try sudo ./install.sh UserName WorkerID" 1>&2
   exit 1
 fi
+
+#echo "sleeping..."
+#sleep 60
 
 apt-get --assume-yes install git automake autotools-dev build-essential cmake libcurl4-openssl-dev libhwloc-dev libjansson-dev libssl-dev libuv1-dev nvidia-cuda-dev nvidia-cuda-toolkit gcc-5 g++-5 libmicrohttpd-dev screen
 
