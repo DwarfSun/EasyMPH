@@ -1,10 +1,13 @@
+#!/bin/bash
 # Make sure only root can run the script
-if [[ $EUID -ne 0 ]]; then
+if [ $EUID -ne 0 ]
+then
    echo "This script must be run as root. On Ubuntu, try: sudo ./install.sh UserName WorkerID" 1>&2
    exit 1
 fi
 
-if [[ $# -lt 2 ]]; then
+if [ $# -lt 2 ]
+then
   echo "Expecting username and worker ID. On Ubuntu,: try sudo ./install.sh UserName WorkerID" 1>&2
   exit 1
 fi
@@ -79,9 +82,11 @@ cd /miners/xmr-stak
 sed -i "s/username.workername/$1.$2/g" pools.txt
 
 cd /miners
+cp /miners/source/EasyMPH/scripts/plloop.sh .
 cp /miners/source/EasyMPH/scripts/automine.sh .
 sed -i "s/username.workername/$1.$2/g" automine.sh
 
+touch crontab.txt
 crontab -l > crontab.txt
 echo "@reboot screen -dmS automine /miners/automine.sh" >> crontab.txt
 crontab crontab.txt

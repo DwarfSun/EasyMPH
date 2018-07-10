@@ -1,3 +1,7 @@
+
+#uncomment below line to repeatedly tell nvidia-smi to limit power usage. There's definitely a better way to do this, but it works for now.
+#screen -dmS power-limiter /miners/plloop.sh 5
+
 while :
   do
     killall ccminer; killall zm; killall xmr-stak; killall ethdcrminer64;
