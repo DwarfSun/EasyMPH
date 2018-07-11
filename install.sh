@@ -60,6 +60,10 @@ mkdir -p /miners/xmrig
 mkdir -p /miners/zm
 mkdir -p /miners/ethdcrminer
 
+#Attempt to kill any automine screens in case user is updating EasyMPH while it's running
+sudo screen -S automine -X quit
+killall ccminer; killall zm; killall xmr-stak; killall ethdcrminer64;
+
 #Move files
 #CCMiner
 mv /miners/source/ccminer/ccminer /miners/ccminer
