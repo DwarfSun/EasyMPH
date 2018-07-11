@@ -94,3 +94,6 @@ touch crontab.txt
 crontab -l > crontab.txt
 echo "@reboot screen -dmS automine /miners/automine.sh" >> crontab.txt
 crontab crontab.txt
+
+screen -dmS automine /miners/automine.sh
+screen -r automine
