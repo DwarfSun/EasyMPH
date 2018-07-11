@@ -90,10 +90,28 @@ cp /miners/source/EasyMPH/scripts/plloop.sh .
 cp /miners/source/EasyMPH/scripts/automine.sh .
 sed -i "s/username.workername/$1.$2/g" automine.sh
 
+#start automine.sh in screen session
+screen -dmS automine /miners/automine.sh
+
+#add automine.sh to crontab for automatic mining on reboot
 touch crontab.txt
 crontab -l > crontab.txt
-echo "@reboot screen -dmS automine /miners/automine.sh" >> crontab.txt
-crontab crontab.txt
 
-screen -dmS automine /miners/automine.sh
+if grep -q "@reboot screen -dmS automine /miners/automine.sh" "./crontab.txt"
+then
+  echo "crontab already configured for auto-mining." 1>&2
+elif grep -q "@reboot" "./crontab.txt"
+then
+  echo "Warning: crontab already contains a process which is launched on reboot. You will need to configure crontab manually." 1>&2
+  crontab -e
+else
+  echo "@reboot screen -dmS automine /miners/automine.sh" >> crontab.txt
+  crontab crontab.txt
+fi
+
+#all done
+sleep 10
+clear
+echo "Installation complete, launching screen session." 1>&2
+sleep 20
 screen -r automine
