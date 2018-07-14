@@ -17,6 +17,7 @@ fi
 
 #Make sure apt is up to date
 apt-get update
+
 #Install all requirements for compiling and running miner programs
 apt-get --assume-yes install git automake autotools-dev build-essential cmake libcurl4-openssl-dev libhwloc-dev libjansson-dev libssl-dev libuv1-dev nvidia-cuda-dev nvidia-cuda-toolkit gcc-5 g++-5 libmicrohttpd-dev screen
 
@@ -66,7 +67,7 @@ mkdir -p /miners/ewbf
 
 #Attempt to kill any automine screens in case user is updating EasyMPH while it's running
 sudo screen -S automine -X quit
-killall ccminer; killall zm; killall xmr-stak; killall ethdcrminer64; killall miner;
+killall ccminer; killall zm; killall xmr-stak; killall ethdcrminer64; killall miner; killall xmrig;
 
 #Move files
 #CCMiner
@@ -79,6 +80,13 @@ cp /miners/source/EasyMPH/miners/xmr-stak/*.txt /miners/xmr-stak
 
 #xmrig
 mv /miners/source/xmrig/build/xmrig /miners/xmrig
+cp /miners/source/xmrig/src/config.json /miners/xmrig
+cd /miners/xmrig
+sed -i "s/proxy.fee.xmrig.com:9999/europe.cryptonight-hub.miningpoolhub.com:17024/g" config.json
+sed -i "s/YOUR_WALLET/DwarfSun.Donation/g" config.json
+sed -i 's/"threads": null/"threads": 1/g' config.json
+sed -i 's/"donate-level": 5/"donate-level": 1' config.json
+sed -i 's/"background": false/"background": true/g' config.json
 
 #DSTM's ZM
 cp /miners/source/EasyMPH/miners/zm/* /miners/zm

