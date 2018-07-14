@@ -15,6 +15,9 @@ fi
 #echo "sleeping..."
 #sleep 60
 
+#Make sure apt is up to date
+apt-get update
+#Install all requirements for compiling and running miner programs
 apt-get --assume-yes install git automake autotools-dev build-essential cmake libcurl4-openssl-dev libhwloc-dev libjansson-dev libssl-dev libuv1-dev nvidia-cuda-dev nvidia-cuda-toolkit gcc-5 g++-5 libmicrohttpd-dev screen
 
 mkdir -p /miners/source
@@ -59,10 +62,11 @@ mkdir -p /miners/xmr-stak
 mkdir -p /miners/xmrig
 mkdir -p /miners/zm
 mkdir -p /miners/ethdcrminer
+mkdir -p /miners/ewbf
 
 #Attempt to kill any automine screens in case user is updating EasyMPH while it's running
 sudo screen -S automine -X quit
-killall ccminer; killall zm; killall xmr-stak; killall ethdcrminer64;
+killall ccminer; killall zm; killall xmr-stak; killall ethdcrminer64; killall miner;
 
 #Move files
 #CCMiner
@@ -82,9 +86,14 @@ cp /miners/source/EasyMPH/miners/zm/* /miners/zm
 #Claymore's ETH Dual Miner
 cp /miners/source/EasyMPH/miners/ethdcrminer/* /miners/ethdcrminer
 
+#EWBF's Equihash Miner
+cp /miners/source/EasyMPH/miners/ewbf/* /miners/ewbf
+
+#Update xmr-stak config with username and rig ID
 cd /miners/xmr-stak
 sed -i "s/username.workername/$1.$2/g" pools.txt
 
+#put the scripts where they belong
 cd /miners
 cp /miners/source/EasyMPH/scripts/plloop.sh .
 cp /miners/source/EasyMPH/scripts/automine.sh .
